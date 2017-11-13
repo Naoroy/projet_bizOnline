@@ -9,6 +9,10 @@ const produits = function(nom, prix, description){
   this.nom = nom;
   this.prix = prix;
   this.description = description;
+  this.reference = function(){
+    var num = 0;
+    if ( )
+  }
 }
 
 /**
