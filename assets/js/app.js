@@ -1,14 +1,12 @@
 /**@namespace */
-const gestionStock = (function() {
+const gestionStock = (function () {
+    "use strict";
+    var inputName, inputPrice, inputDescription, list;
     var stock = [];
-    var inputName, inputPrice, inputDescription;
-    window.onload = function init() {
-        getProductInfo();
-        document.querySelector("button").onclick = createProduct;
-    };
     /**
      * @author Bernard Salah
      * @constructor
+     * @description crée un nouveau produit
      * @alias gestionStock.Produits
      * @param {string} nom
      * @param {number} prix
@@ -26,17 +24,33 @@ const gestionStock = (function() {
      * @description Crée un nouveau produits avec les valeurs (input)
      */
     const createProduct = function () {
-        let newProduct = new Produits(inputName, inputPrice, inputDescription);
+        var newProduct = new Produits(inputName.value, inputPrice.value, inputDescription.value);
         stock.push(newProduct);
         console.log(stock);
+        const displayInDOM = function () {
+            let i;
+            list.innerHTML = "";
+            for (i = 0; i < stock.length; i += 1) {
+                list.innerHTML += "<li>" + stock[i].nom + "\/" + stock[i].prix + "\/" + stock[i].description + "</li>";
+            }
+        };
+        displayInDOM();
+        inputName.value = "";
+        inputPrice.value = "";
+        inputDescription.value = "";
     };
     /**
-     *@description Récupère les valeurs (input)
      @alias gestionStock.getProductInfo
+     *@description Récupère les valeurs (input)
     */
     const getProductInfo = function () {
-        inputName = document.querySelector("input#my_name").value;
-        inputPrice = document.querySelector("input#my_price").value;
-        inputDescription = document.querySelector("input#my_description").value;
+        inputName = document.querySelector("input#my_name");
+        inputPrice = document.querySelector("input#my_price");
+        inputDescription = document.querySelector("input#my_description");
+        list = document.querySelector("ul");
+    };
+    window.onload = function init() {
+        getProductInfo();
+        document.querySelector("button").onclick = createProduct;
     };
 }());
